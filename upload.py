@@ -9,7 +9,11 @@ def upload_files_in_directory(directory, api_id, api_hash, bot_token):
         for root, _, files in os.walk(directory):
             for filename in files:
                 file_path = os.path.join(root, filename)
-                app.send_document(chat_id=chat_id, document=file_path)
+                
+                # Menggunakan nama file sebagai caption saat mengunggahnya
+                caption = f"File: {filename}"
+                
+                app.send_document(chat_id=chat_id, document=file_path, caption=caption)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Upload files in a directory to Telegram.')
@@ -29,4 +33,3 @@ if __name__ == "__main__":
         upload_files_in_directory(directory, api_id, api_hash, bot_token)
     else:
         print("Please provide directory path, api_id, api_hash, and bot_token using appropriate arguments.")
-      
